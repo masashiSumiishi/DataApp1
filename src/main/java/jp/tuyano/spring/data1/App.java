@@ -1,25 +1,24 @@
 package jp.tuyano.spring.data1;
 
-import java.util.List;
-import java.util.Map;
+import javax.persistence.EntityManager;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 public class App {
-	private static JdbcTemplate jdbcTemplate;
+
 	private static ApplicationContext context;
+	private static EntityManager manager;
 
 	public static void main(String[] args) {
 		context = new ClassPathXmlApplicationContext("classpath:/bean.xml");
-		jdbcTemplate = context.getBean(JdbcTemplate.class);
+		LocalContainerEntityManagerFactoryBean factory =
+				context.getBean(LocalContainerEntityManagerFactoryBean.class);
+		manager = factory.getNativeEntityManagerFactory().createEntityManager();
 
-		jdbcTemplate.execute("insert into mypersondata (name,mail,age) values('tuyano','syoda@tuyano.com',123)");
-		List<Map<String, Object>> list = jdbcTemplate.queryForList("select * from mypersondata");
-		for (Map<String, Object> obj : list) {
-			System.out.println(obj);
-		}
+		MyPersonData data = manager.find(MyPersonData.class, 1L);
+		System.out.println(data);
 	}
 
 }
