@@ -21,7 +21,7 @@ public class App {
 
 		MyPersonDataDao<MyPersonData> dao =
 				new MyPersonDataDaoImpl<MyPersonData>(manager);
-		List<MyPersonData> list = dao.getAllEntity();
+		List<MyPersonData> list = dao.findByField("name", "hanako");
 		for (MyPersonData person : list) {
 			System.out.println(person);
 		}

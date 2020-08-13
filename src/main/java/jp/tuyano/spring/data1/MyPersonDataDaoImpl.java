@@ -22,7 +22,8 @@ public class MyPersonDataDaoImpl<MyPersonData>
 
 	@SuppressWarnings({"unchecked", "rawtypes" })
 	public List findByField(String field, String find) {
-		return null;
+		Query query = manager.createQuery("from MyPersonData where " + field + " = '" + find + "'");
+		return query.getResultList();
 	}
 
 	public void addEntity(Object entity) {
