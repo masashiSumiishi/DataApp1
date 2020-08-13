@@ -3,6 +3,7 @@ package jp.tuyano.spring.data1;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 public class MyPersonDataDaoImpl<MyPersonData>
@@ -27,7 +28,11 @@ public class MyPersonDataDaoImpl<MyPersonData>
 	}
 
 	public void addEntity(Object entity) {
-
+		EntityTransaction transaction = manager.getTransaction();
+		transaction.begin();
+		manager.persist(entity);
+		manager.flush();
+		transaction.commit();
 	}
 
 	public void updateEntity(Object entity) {

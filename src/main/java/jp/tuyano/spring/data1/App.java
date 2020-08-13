@@ -21,7 +21,10 @@ public class App {
 
 		MyPersonDataDao<MyPersonData> dao =
 				new MyPersonDataDaoImpl<MyPersonData>(manager);
-		List<MyPersonData> list = dao.findByField("name", "hanako");
+		MyPersonData personData = new MyPersonData("tuyano", "syoda@tuyano.com", 123);
+		dao.addEntity(personData);
+
+		List<MyPersonData> list = dao.getAllEntity();
 		for (MyPersonData person : list) {
 			System.out.println(person);
 		}
