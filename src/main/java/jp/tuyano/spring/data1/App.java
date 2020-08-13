@@ -1,5 +1,7 @@
 package jp.tuyano.spring.data1;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.springframework.context.ApplicationContext;
@@ -17,8 +19,12 @@ public class App {
 				context.getBean(LocalContainerEntityManagerFactoryBean.class);
 		manager = factory.getNativeEntityManagerFactory().createEntityManager();
 
-		MyPersonData data = manager.find(MyPersonData.class, 1L);
-		System.out.println(data);
+		MyPersonDataDao<MyPersonData> dao =
+				new MyPersonDataDaoImpl<MyPersonData>(manager);
+		List<MyPersonData> list = dao.getAllEntity();
+		for (MyPersonData person : list) {
+			System.out.println(person);
+		}
 	}
 
 }
