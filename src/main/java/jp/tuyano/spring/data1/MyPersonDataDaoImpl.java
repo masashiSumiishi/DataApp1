@@ -36,7 +36,11 @@ public class MyPersonDataDaoImpl<MyPersonData>
 	}
 
 	public void updateEntity(Object entity) {
-
+		EntityTransaction transaction = manager.getTransaction();
+		transaction.begin();
+		manager.merge(entity);
+		manager.flush();
+		transaction.commit();
 	}
 
 	public void removeEntity(Object data) {

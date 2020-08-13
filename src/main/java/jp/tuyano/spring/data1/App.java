@@ -21,8 +21,9 @@ public class App {
 
 		MyPersonDataDao<MyPersonData> dao =
 				new MyPersonDataDaoImpl<MyPersonData>(manager);
-		MyPersonData personData = new MyPersonData("tuyano", "syoda@tuyano.com", 123);
-		dao.addEntity(personData);
+		MyPersonData personData = manager.find(MyPersonData.class, 1L);
+		personData.setName("***" + personData.getName() + "***");
+		dao.updateEntity(personData);
 
 		List<MyPersonData> list = dao.getAllEntity();
 		for (MyPersonData person : list) {
