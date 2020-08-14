@@ -44,10 +44,16 @@ public class MyPersonDataDaoImpl<MyPersonData>
 	}
 
 	public void removeEntity(Object data) {
-
+		EntityTransaction transaction = manager.getTransaction();
+		transaction.begin();
+		manager.remove(data);
+		manager.flush();
+		transaction.commit();
 	}
 
 	public void removeEntity(Long id) {
-
+		jp.tuyano.spring.data1.MyPersonData entity =
+				manager.find(jp.tuyano.spring.data1.MyPersonData.class, id);
+		this.removeEntity(entity);
 	}
 }

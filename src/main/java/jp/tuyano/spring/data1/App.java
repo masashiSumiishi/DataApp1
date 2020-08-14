@@ -19,11 +19,8 @@ public class App {
 				context.getBean(LocalContainerEntityManagerFactoryBean.class);
 		manager = factory.getNativeEntityManagerFactory().createEntityManager();
 
-		MyPersonDataDao<MyPersonData> dao =
-				new MyPersonDataDaoImpl<MyPersonData>(manager);
-		MyPersonData personData = manager.find(MyPersonData.class, 1L);
-		personData.setName("***" + personData.getName() + "***");
-		dao.updateEntity(personData);
+		MyPersonDataDao<MyPersonData> dao = new MyPersonDataDaoImpl<MyPersonData>(manager);
+		dao.removeEntity(1L);
 
 		List<MyPersonData> list = dao.getAllEntity();
 		for (MyPersonData person : list) {
